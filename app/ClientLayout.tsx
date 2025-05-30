@@ -83,7 +83,7 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
             <div className="auth-section">
               <SignedOut>
                 <SignInButton mode="modal">
-                  <button className="btn-signin">Sign In</button>
+                  <button className="btn-signin">Log In</button>
                 </SignInButton>
                 <SignUpButton mode="modal">
                   <button className="btn-signup">Sign Up</button>
