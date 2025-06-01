@@ -1,11 +1,19 @@
-'use client'
+'use client';
+
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from 'lucide-react';
 import './contact-styles.css';
 
+interface FormData {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
+
 export default function Contact() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     subject: '',
@@ -13,7 +21,9 @@ export default function Contact() {
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -21,11 +31,11 @@ export default function Contact() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
     setIsSubmitted(true);
-    
+
     setTimeout(() => {
       setIsSubmitted(false);
       setFormData({
@@ -80,17 +90,13 @@ export default function Contact() {
       <section className="contact-info-section">
         <div className="section-header">
           <h2>Contact Information</h2>
-          <p className="section-subtitle">
-            Multiple ways to reach our team
-          </p>
+          <p className="section-subtitle">Multiple ways to reach our team</p>
         </div>
 
         <div className="contact-info-grid">
-          {contactInfo.map((info) => (
+          {contactInfo.map(info => (
             <div key={info.title} className="contact-info-card">
-              <div className="contact-icon-container">
-                {info.icon}
-              </div>
+              <div className="contact-icon-container">{info.icon}</div>
               <div className="contact-details">
                 <h3>{info.title}</h3>
                 <p className="contact-detail">{info.detail}</p>
@@ -119,7 +125,7 @@ export default function Contact() {
                 <p>Thank you for contacting us. We'll get back to you soon.</p>
               </div>
             ) : (
-              <div className="contact-form" onSubmit={handleSubmit}>
+              <form className="contact-form" onSubmit={handleSubmit}>
                 <div className="form-row">
                   <div className="form-group">
                     <label htmlFor="name" className="form-label">
@@ -185,15 +191,11 @@ export default function Contact() {
                   />
                 </div>
 
-                <button
-                  type="button"
-                  onClick={handleSubmit}
-                  className="form-submit"
-                >
+                <button type="submit" className="form-submit">
                   <Send className="submit-icon" />
                   Send Message
                 </button>
-              </div>
+              </form>
             )}
           </div>
 
@@ -218,7 +220,7 @@ export default function Contact() {
                   <div className="stat-label">Satisfaction</div>
                 </div>
               </div>
-              
+
               <div className="sidebar-info">
                 <h4>Frequently Asked Questions</h4>
                 <ul className="faq-list">
@@ -241,7 +243,7 @@ export default function Contact() {
         <div className="cta-content">
           <h2>Ready to Get Started?</h2>
           <p>
-            Let's discuss how we can help bring your vision to life with our 
+            Let's discuss how we can help bring your vision to life with our
             innovative technology solutions.
           </p>
           <div className="cta-buttons">
